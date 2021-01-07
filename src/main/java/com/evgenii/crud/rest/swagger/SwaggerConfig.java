@@ -1,4 +1,4 @@
-package com.evgenii.crud.swagger;
+package com.evgenii.crud.rest.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
     /**
-     * Default com.evgenii.crud.swagger-ui path: http://localhost:8080/swagger-ui.html#/
+     * Default com.evgenii.crud.rest.swagger-ui path: http://localhost:8080/swagger-ui.html#/
      *
      * @return <code>Docket</code> configuration
      */
@@ -24,7 +24,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(getApiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.evgenii.crud.controllers"))
                 .paths(PathSelectors.any())
                 .build();
     }

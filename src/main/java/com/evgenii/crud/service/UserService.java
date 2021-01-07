@@ -3,6 +3,7 @@ package com.evgenii.crud.service;
 
 import com.evgenii.crud.dto.UserDto;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
@@ -10,7 +11,9 @@ public interface UserService {
 
     UserDto createUser(UserDto newUser);
 
-    UserDto updateUser(UserDto newUser);
+    UserDto updateUser(UUID userId, UserDto newUser);
 
     void deleteUser(UUID userId);
+
+    List<UserDto> getAllUser();
 }

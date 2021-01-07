@@ -1,8 +1,6 @@
 package com.evgenii.crud.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +11,9 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Builder(toBuilder = true)
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class User {
     @Id
