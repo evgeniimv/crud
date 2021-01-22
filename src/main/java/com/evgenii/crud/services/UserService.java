@@ -1,4 +1,4 @@
-package com.evgenii.crud.service;
+package com.evgenii.crud.services;
 
 
 import com.evgenii.crud.dto.UserDto;

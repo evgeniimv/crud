@@ -1,25 +1,28 @@
-package com.evgenii.crud.service.impl;
+package com.evgenii.crud.services.impl;
 
 
 import com.evgenii.crud.dto.UserDto;
-import com.evgenii.crud.entity.User;
-import com.evgenii.crud.repository.UserRepository;
-import com.evgenii.crud.service.UserService;
-import com.evgenii.crud.service.mapper.UserMapper;
+import com.evgenii.crud.entities.User;
+import com.evgenii.crud.repos.UserRepository;
+import com.evgenii.crud.services.UserService;
+import com.evgenii.crud.services.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public UserDto getUser(UUID userId) {
         return userMapper.toDto(userRepository.getOne(userId));
     }

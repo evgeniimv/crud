@@ -1,11 +1,9 @@
-package com.evgenii.crud.entity;
+package com.evgenii.crud.entities;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
@@ -15,8 +13,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "[users]")
 public class User {
     @Id
+    @Type(type="uuid-char")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 

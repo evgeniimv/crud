@@ -1,7 +1,7 @@
-package com.evgenii.crud.repository;
+package com.evgenii.crud.repos;
 
 
-import com.evgenii.crud.entity.User;
+import com.evgenii.crud.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

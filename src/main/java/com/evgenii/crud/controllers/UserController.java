@@ -1,7 +1,7 @@
 package com.evgenii.crud.controllers;
 
 import com.evgenii.crud.dto.UserDto;
-import com.evgenii.crud.service.UserService;
+import com.evgenii.crud.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

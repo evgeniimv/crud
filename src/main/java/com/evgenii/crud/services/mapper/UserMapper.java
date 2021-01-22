@@ -1,8 +1,8 @@
-package com.evgenii.crud.service.mapper;
+package com.evgenii.crud.services.mapper;
 
 
 import com.evgenii.crud.dto.UserDto;
-import com.evgenii.crud.entity.User;
+import com.evgenii.crud.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
