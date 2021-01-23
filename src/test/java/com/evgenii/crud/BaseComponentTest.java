@@ -20,8 +20,7 @@ public class BaseComponentTest {
         return objectMapper.readValue(input, clazz);
     }
 
-    public <T, R extends List<T>> List<T> mapToListOfObjects(String input, Class<T> objectType
-    ) throws IOException {
+    public <T> List<T> mapToListOfObjects(String input, Class<T> objectType) throws IOException {
         CollectionType type = objectMapper.getTypeFactory()
                 .constructCollectionType(List.class, objectType);
         return objectMapper.readValue(input, type);
