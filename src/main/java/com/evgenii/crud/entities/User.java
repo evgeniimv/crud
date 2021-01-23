@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "[users]")
+@Table(name = "users", schema = "dbo")
 public class User {
     @Id
     @Type(type="uuid-char")
