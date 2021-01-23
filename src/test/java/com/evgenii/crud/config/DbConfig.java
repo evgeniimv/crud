@@ -18,7 +18,7 @@ public class DbConfig {
         try {
             EmbeddedDatabaseBuilder dbBuilder = new EmbeddedDatabaseBuilder();
             return dbBuilder.setType(EmbeddedDatabaseType.H2)
-                    .addScript("/schema-h2.sql")
+                    .addScript("/h2/schema-h2.sql")
                     .build();
         } catch (Exception e) {
             log.error("Embedded Datasource bean connot be created!", e);

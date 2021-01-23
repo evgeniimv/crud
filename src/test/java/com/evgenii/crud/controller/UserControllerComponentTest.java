@@ -1,16 +1,13 @@
-package com.evgenii.crud;
+package com.evgenii.crud.controller;
 
 
+import com.evgenii.crud.BaseComponentTest;
 import com.evgenii.crud.config.ComponentTest;
 import com.evgenii.crud.dto.UserDto;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
@@ -21,12 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ComponentTest
-public class UserControllerComponentTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-    @Autowired
-    private ObjectMapper objectMapper;
+public class UserControllerComponentTest extends BaseComponentTest {
 
     @Sql({
             "/db-test-case/default-user.sql"
@@ -39,8 +31,7 @@ public class UserControllerComponentTest {
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        List<UserDto> users = objectMapper.readValue(response, new TypeReference<List<UserDto>>() {
-        });
+        List<UserDto> users = mapToListOfObjects(response, UserDto.class);
 
         assertThat(users)
                 .hasSize(1).element(0)
@@ -67,7 +58,7 @@ public class UserControllerComponentTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        final UserDto createdUser = objectMapper.readValue(response, UserDto.class);
+        final UserDto createdUser = mapToObject(response, UserDto.class);
 
         assertThat(createdUser)
                 .usingRecursiveComparison()
