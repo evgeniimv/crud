@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @TestPropertySource("/application-test.properties")
-@SpringBootTest(classes = {Application.class, DbConfig.class})
+@SpringBootTest(classes = {Application.class, DbConfig.class, ControllerTestBeans.class})
 @ActiveProfiles("test")
 public @interface ComponentTest {
 }

@@ -1,6 +1,7 @@
-package com.evgenii.crud.rest;
+package com.evgenii.crud.config;
 
-import com.evgenii.crud.rest.swagger.SwaggerConfig;
+
+import com.evgenii.crud.config.swagger.SwaggerConfig;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;

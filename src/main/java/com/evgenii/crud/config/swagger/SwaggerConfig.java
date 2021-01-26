@@ -1,4 +1,4 @@
-package com.evgenii.crud.rest.swagger;
+package com.evgenii.crud.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
