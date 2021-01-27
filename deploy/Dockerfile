@@ -1,4 +1,3 @@
-
 FROM centos:7
 
 RUN yum install -y \
@@ -6,28 +5,28 @@ RUN yum install -y \
         wget \
         unzip
 
-ARG JAVA_SOURCE ="https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u282-b08/OpenJDK8U-jdk_ppc64le_linux_hotspot_8u282b08.tar.gz"
+ARG JAVA_SOURCE="https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u282-b08/OpenJDK8U-jdk_ppc64le_linux_hotspot_8u282b08.tar.gz"
 
 WORKDIR /usr/lib
 
 RUN wget -P /usr/lib/ $JAVA_SOURCE && \
-    tar -zxf OpenJDK8U-jdk_x64_linux_hotspot_8u222b10.tar.gz && \
-    rm -f OpenJDK8U-jdk_x64_linux_hotspot_8u222b10.tar.gz
+    tar -zxf OpenJDK8U-jdk_ppc64le_linux_hotspot_8u282b08.tar.gz && \
+    rm -f OpenJDK8U-jdk_ppc64le_linux_hotspot_8u282b08.tar.gz
 
-ENV JAVA_HOME="/usr/lib/jdk8u222-b10/"
+ENV JAVA_HOME="/usr/lib/jdk8u282-b08/"
 
 ENV PATH="$JAVA_HOME/bin:${PATH}"
 
-COPY get_jar-file.sh /init
+COPY get-jar-crud-app.sh init
 
-RUN chmod +x /init
-WORKDIR /opt
+RUN chmod +x init
 
-RUN ["/init", "tes-dev", "https://github.com/SilinPavel/cloud-pipeline.git"]
+
+RUN ["/init", "master" "https://github.com/evgeniimv/crud.git"]
 
 RUN mkdir config
 COPY application.properties config/
 
-CMD ["java", "-jar", "tes-adapter-1.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "CRUD-Application-1.0.jar"]
 
 EXPOSE 8080
