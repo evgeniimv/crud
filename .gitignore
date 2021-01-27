@@ -1,0 +1,10 @@
+/.idea/
+/.gradle/
+*.ipr
+*.iws
+*.iml
+*.idea
+target/
+.gitginore
+
+/logs/
