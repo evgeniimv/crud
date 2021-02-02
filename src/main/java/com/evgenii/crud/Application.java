@@ -3,6 +3,7 @@ package com.evgenii.crud;
 import com.evgenii.crud.config.RestConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 @Import({
         RestConfig.class
 })
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 @PropertySource("file:src/main/resources/application.properties")
 public class Application {
     public static void main(String[] args) {

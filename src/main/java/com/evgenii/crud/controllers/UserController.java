@@ -1,5 +1,7 @@
 package com.evgenii.crud.controllers;
 
+import com.evgenii.crud.aspect.Auditable;
+import com.evgenii.crud.aspect.EventCode;
 import com.evgenii.crud.dto.UserDto;
 import com.evgenii.crud.services.AuthorizationService;
 import com.evgenii.crud.services.UserService;
@@ -7,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,11 +21,13 @@ public class UserController {
     private final AuthorizationService authorizationService;
 
     @GetMapping("/{userId}")
+    @Auditable(value = EventCode.CRUD_USERS_GET_BY_ID, params = {"userId"})
     public UserDto getUser(@PathVariable UUID userId) {
         return userService.getUser(userId);
     }
 
     @GetMapping
+    @Auditable(value = EventCode.CRUD_USERS_GET_ALL)
     public List<UserDto> getAllUser() {
 //        final String authorizationResponse = authorizationService.checkAuthorization("Some user");
 //        if (authorizationResponse == null) {
@@ -33,8 +37,13 @@ public class UserController {
     }
 
     @PostMapping
+    @Auditable(value = EventCode.CRUD_USERS_CREATE, params = {"userDto:name", "userDto:email"})
     public UserDto createUser(@RequestBody UserDto userDto) {
-        return userService.createUser(userDto);
+        final Instant a = Instant.now();
+        final UserDto user = userService.createUser(userDto);
+        final Instant b = Instant.now();
+        System.out.println("TIME: " + (b.toEpochMilli() - a.toEpochMilli()));
+        return user;
     }
 
     @PutMapping("/{userId}")

@@ -110,6 +110,12 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${spring-boot-dependencies.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
         <!--Tests-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -209,6 +215,12 @@
             <artifactId>lombok</artifactId>
             <version>1.18.12</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Apache Commons Collection-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
 </project>
