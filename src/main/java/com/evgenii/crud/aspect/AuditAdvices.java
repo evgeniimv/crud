@@ -1,5 +1,8 @@
 package com.evgenii.crud.aspect;
 
+import com.evgenii.crud.entities.Audit;
+import com.evgenii.crud.repos.AuditRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
@@ -7,6 +10,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.CodeSignature;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
@@ -16,8 +20,13 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @Aspect
+@Slf4j
 @Component
 public class AuditAdvices {
+
+    @Autowired
+    private AuditRepository auditRepository;
+
     private static final String SERVICE = "CLAIM_BACKEND";
     private static final String SESSION_ID = "DEFAULT_SESSION_ID";
     private static final String USER_ID = "DEFAULT_USER_ID";
@@ -30,16 +39,23 @@ public class AuditAdvices {
         if (method.isAnnotationPresent(Auditable.class)) {
             final Auditable auditable = method.getAnnotation(Auditable.class);
             final EventCode eventCode = auditable.value();
+            final Instant date = Instant.now();
 
-            System.out.println("Code: " + eventCode.name()
-                    + ". Title: " + eventCode.getTitle()
-                    + ". Service: " + SERVICE
-                    + ". Message: " + buildMessage(eventCode.getMessageTemplate(), getMethodAttr(joinPoint, auditable.params())));
+            final Audit audit = Audit.builder()
+                    .code(eventCode.name())
+                    .title(eventCode.getTitle())
+                    .service(SERVICE)
+                    .message(buildMessage(eventCode.getMessageTemplate(), getMethodAttr(joinPoint, auditable.params(), date)))
+                    .date(date)
+                    .build();
+
+            final Audit savedAudit = auditRepository.save(audit);
+            log.info("Audit created: " + savedAudit.toString());
         }
     }
 
-    private Object[] getMethodAttr(JoinPoint joinPoint, String[] params) {
-        final String[] init = new String[]{Instant.now().toString(), SESSION_ID, USER_ID};
+    private Object[] getMethodAttr(JoinPoint joinPoint, String[] params, Instant date) {
+        final String[] init = new String[]{date.toString(), SESSION_ID, USER_ID};
         final CodeSignature codeSignature = (CodeSignature) joinPoint.getSignature();
         final String[] parameterNames = codeSignature.getParameterNames();
         final Object[] parameterValues = joinPoint.getArgs();
