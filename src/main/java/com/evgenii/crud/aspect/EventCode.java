@@ -7,15 +7,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum EventCode {
     // first - timestamp, second - session, third - user
-    CRUD_USERS_GET_ALL("Запрос на получение списка зарегистрированных пользователей",
-            "'%s' в рамках сессии '%s' пользователь '%s' осуществил "
-                    + "запрос на получение списка всех зарегистрированных пользователей"),
-    CRUD_USERS_GET_BY_ID("Запрос на получение пользователя по переданному ID",
-                               "'%s' в рамках сессии '%s' пользователь '%s' осуществил "
-                               + "запрос на получение пользователя по переданному ID: '%s'"),
-    CRUD_USERS_CREATE("Запрос на создание пользователя",
-                                 "'%s' в рамках сессии '%s' пользователь '%s' осуществил "
-                                 + "запрос на создание пользователя - Имя: '%s', Email: '%s'");
+    CRUD_USERS_GET_ALL("Request for a list of registered users",
+            "'%s' within a session '%s' user '%s' made a request to get a list of all registered users"),
+    CRUD_USERS_GET_BY_ID("Request to get a user by the passed ID",
+            "'%s' within a session '%s' user '%s' made a request to get a user by the passed ID: '%s'"),
+    CRUD_USERS_CREATE("Request to create a new user",
+            "'%s' within a session '%s' user '%s' made a request to create new user - Name: '%s', Email: '%s'");
 
     String title;
     String messageTemplate;

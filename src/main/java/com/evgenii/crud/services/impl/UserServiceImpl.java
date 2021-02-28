@@ -4,6 +4,7 @@ package com.evgenii.crud.services.impl;
 import com.evgenii.crud.dto.UserDto;
 import com.evgenii.crud.entities.User;
 import com.evgenii.crud.repos.UserRepository;
+import com.evgenii.crud.services.KafkaUserService;
 import com.evgenii.crud.services.UserService;
 import com.evgenii.crud.services.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final KafkaUserService kafkaUserService;
 
     @Override
     @Transactional(readOnly = true)
@@ -30,7 +32,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(UserDto newUser) {
         User createdUser = userRepository.save(userMapper.toEntity(newUser));
-        return userMapper.toDto(createdUser);
+        UserDto userDto = userMapper.toDto(createdUser);
+        kafkaUserService.send(userDto);
+        return userDto;
     }
 
     @Override

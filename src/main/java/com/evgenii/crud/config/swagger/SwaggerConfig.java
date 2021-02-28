@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
     /**
-     * Default com.evgenii.crud.rest.swagger-ui path: http://localhost:8080/swagger-ui.html#/
+     * Default com.evgenii.crud.rest.swagger-ui path: http://localhost:8081/swagger-ui.html#/
      *
      * @return <code>Docket</code> configuration
      */
